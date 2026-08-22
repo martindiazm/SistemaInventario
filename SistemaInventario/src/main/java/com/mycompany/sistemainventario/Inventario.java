@@ -1,15 +1,95 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 package com.mycompany.sistemainventario;
 
-/**
- *
- * @author mdiaz
- */
-public class Inventario {
+import java.util.ArrayList;
+import java.util.HashMap;
 
+public class Inventario 
+{
+    private HashMap<String, Categoria> categorias;
+
+    public Inventario() 
+    {
+        categorias = new HashMap<>();
+    }
+
+    public HashMap<String, Categoria> getCategorias() 
+    {
+        return categorias;
+    }
+
+    public void setCategorias(HashMap<String, Categoria> categorias) 
+    {
+        this.categorias = categorias;
+    }
+
+    // Agrega una categoría al inventario
+    public void agregarCategoria(Categoria categoria) 
+    {
+        if (categorias.containsKey(categoria.getNombreCat()) == false) {
+            categorias.put(categoria.getNombreCat(), categoria);
+        }
+    }
+
+    // Agrega un producto dentro de una categoría
+    public void agregarProducto(String nombreCat, Producto producto) 
+    {
+        Categoria categoria = categorias.get(nombreCat);
+
+        if (categoria != null) {
+            categoria.agregarProducto(producto);
+        } else {
+            System.out.println("La categoría no existe.");
+        }
+    }
+    public Producto buscarProducto(String codigo)
+    {
+    // buscar por código
+    }
+    public Producto buscarProducto(String nombre, Categoria categoria)
+    {
+    // buscar por nombre y categoria
+    }
+    public Categoria buscarCategoria(String categoria)
+    {
+    // buscar por nombre
+    }
+    public void mostrarCategorias() 
+    {
+
+        if (categorias.isEmpty()) 
+        {
+            System.out.println("No existen categorías.");
+            return;
+        }
+        
+        // Este for recorre todas las categorias de una coleccion sin usar indices
+        // .values() retorna una coleccion con todas las categorias(valores) del mapa
+        for (Categoria categoria : categorias.values()) 
+        {
+            System.out.println(categoria.getNombreCat());
+        }
+    }
+    public void mostrarProductos() 
+    {
+
+    for (Categoria categoria : categorias.values()) {
+
+        System.out.println("\nCategoría: " + categoria.getNombreCat());
+        
+        // Este for recorre todos los productos de la lista sin usar indices
+        for (Producto producto : categoria.getListaProductos()) {
+
+            System.out.println(
+                    producto.getId()
+                    + " - "
+                    + producto.getNombre()
+                    + " - $"
+                    + producto.getPrecio()
+                    + " - Stock: "
+                    + producto.getStock()
+            );
+        }
+    }
+}
 }

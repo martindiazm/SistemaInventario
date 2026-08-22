@@ -1,15 +1,41 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 package com.mycompany.sistemainventario;
 
-/**
- *
- * @author mdiaz
- */
-public class Categoria {
+import java.util.ArrayList;
 
+public class Categoria 
+{
+    private String nombreCat;
+
+    private ArrayList<Producto> listaProductos;
+
+    public Categoria(String nombreCat) 
+    {
+        this.nombreCat = nombreCat;
+        this.listaProductos = new ArrayList<>();
+    }
+
+    public String getNombreCat() 
+    {
+        return nombreCat;
+    }
+
+    public void setNombreCat(String nombreCat) 
+    {
+        this.nombreCat = nombreCat;
+    }
+
+    public ArrayList<Producto> getListaProductos() 
+    {
+        return listaProductos;
+    }
+
+    public void setListaProductos(ArrayList<Producto> listaProductos)
+    {
+        this.listaProductos = listaProductos;
+    }
+    public void agregarProducto(Producto producto) 
+    {
+        listaProductos.add(producto);
+    }
 }

@@ -1,15 +1,99 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 package com.mycompany.sistemainventario;
 
-/**
- *
- * @author mdiaz
- */
-public class Producto {
+public class Producto 
+{
+    private String id;
+    private String nombre;
+    private String marca;
+    private int precio;
+    private int precioOferta;
+    private int stock;
 
+    public Producto(String id, String nombre, String marca, int precio, int stock) 
+    {
+        this.id = id;
+        this.nombre = nombre;
+        this.marca = marca;
+        this.precio = precio;
+        this.stock = stock;
+    }
+    public Producto(String id, String nombre, String marca, int precio, int precioOferta, int stock) 
+    {
+        this.id = id;
+        this.nombre = nombre;
+        this.marca = marca;
+        this.precio = precio;
+        this.precioOferta = precioOferta;
+        this.stock = stock;
+    }
+
+    public String getId() 
+    {
+        return id;
+    }
+
+    public void setId(String id) 
+    {
+        this.id = id;
+    }
+
+    public String getNombre() 
+    {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) 
+    {
+        this.nombre = nombre;
+    }
+    
+    public String getMarca() 
+    {
+        return marca;
+    }
+
+    public void setMarca(String marca) 
+    {
+        this.marca = marca;
+    }
+
+    public int getPrecio() 
+    {
+        return precio;
+    }
+
+    public void setPrecio(int precio) 
+    {
+        this.precio = precio;
+    }
+
+    public int getPrecioOferta() 
+    {
+        return precioOferta;
+    }
+
+    public void setPrecioOferta(int precioOferta) 
+    {
+        this.precioOferta = precioOferta;
+    }
+
+    public int getStock() 
+    {
+        return stock;
+    }
+
+    public void setStock(int stock) 
+    {
+        this.stock = stock;
+    }
+    public void aumentarStock(int cantidad) 
+    {
+        stock += cantidad;
+    }
+
+    public void disminuirStock(int cantidad) 
+    {
+        stock -= cantidad;
+    }
 }
