@@ -44,15 +44,37 @@ public class Inventario
     }
     public Producto buscarProducto(String codigo)
     {
-    // buscar por código
+        // buscar por código
+        for (Categoria categoria : categorias.values()) {
+            for (Producto producto : categoria.getListaProductos()) {
+                if (producto.getId().equals(codigo)) {
+                    return producto;
+                }
+            }
+        }
+
+        return null;
     }
-    public Producto buscarProducto(String nombre, Categoria categoria)
-    {
-    // buscar por nombre y categoria
+    public Producto buscarProducto(String nombre, Categoria categoria) {
+        // buscar por nombre y categoria
+        for (Producto producto : categoria.getListaProductos()) {
+            if (producto.getNombre().equalsIgnoreCase(nombre)) {   
+                return producto;
+            }
+        }
+
+        return null;
     }
-    public Categoria buscarCategoria(String categoria)
+    public Categoria buscarCategoria(String nombre)
     {
-    // buscar por nombre
+        // buscar por nombre
+        for (Categoria categoria : categorias.values()) {
+            if (categoria.getNombreCat().equalsIgnoreCase(nombre)) {
+                return categoria;
+            }
+        }
+
+        return null;
     }
     public void mostrarCategorias() 
     {
