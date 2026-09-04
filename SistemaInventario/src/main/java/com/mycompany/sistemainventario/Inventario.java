@@ -76,6 +76,23 @@ public class Inventario
 
         return null;
     }
+    public boolean modificarProducto(String codigo, String nuevoNombre, String nuevaMarca, int nuevoPrecio, int nuevoPrecioOferta, int nuevoStock) {
+        Producto producto = buscarProducto(codigo);
+
+        if (producto != null) 
+        {
+            producto.setNombre(nuevoNombre);
+            producto.setMarca(nuevaMarca);
+            producto.setPrecio(nuevoPrecio);
+            producto.setPrecioOferta(nuevoPrecioOferta);
+            producto.setStock(nuevoStock);
+
+            return true;
+        }
+
+        return false;
+    }
+
     public void mostrarCategorias() 
     {
 
