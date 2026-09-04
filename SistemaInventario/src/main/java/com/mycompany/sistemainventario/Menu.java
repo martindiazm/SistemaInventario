@@ -112,6 +112,16 @@ public class Menu
 
                 case 3:
                     // Buscar categoria
+                    System.out.print("\nIngrese el nombre de la categoría: ");
+                    String nombreCategoria = lector.readLine();
+
+                    Categoria categoriaEncontrada = inventario.buscarCategoria(nombreCategoria);
+
+                    if (categoriaEncontrada != null) {
+                        System.out.println("\nCategoría encontrada: " + categoriaEncontrada.getNombreCat());
+                    } else {
+                        System.out.println("\nLa categoría no existe.");
+                    }
 
 
 
@@ -185,7 +195,64 @@ public class Menu
 
                 case 3:
                     // Buscar producto
+                    System.out.println("\n--- BUSCAR PRODUCTO ---");
+                    System.out.println("1. Buscar por código");
+                    System.out.println("2. Buscar por nombre y categoría");
+    
+                    System.out.print("Seleccione una opción: ");
+                    int tipoBusqueda = Integer.parseInt(lector.readLine());
 
+                    if (tipoBusqueda == 1) {
+
+                        System.out.print("\nIngrese el código del producto: ");
+                        String codigo = lector.readLine();
+
+                        Producto productoEncontrado = inventario.buscarProducto(codigo);
+
+                        if (productoEncontrado != null) {
+                            System.out.println("\n--- PRODUCTO ENCONTRADO ---");
+                            System.out.println("Código: " + productoEncontrado.getId());
+                            System.out.println("Nombre: " + productoEncontrado.getNombre());
+                            System.out.println("Marca: " + productoEncontrado.getMarca());
+                            System.out.println("Precio: $" + productoEncontrado.getPrecio());
+                            System.out.println("Stock: " + productoEncontrado.getStock());
+                        } else {
+                            System.out.println("\nEl producto no existe.");
+                        }
+
+                    } else if (tipoBusqueda == 2) {
+
+                        System.out.print("\nIngrese el nombre del producto: ");
+                        String nombreProducto = lector.readLine();
+
+                        System.out.print("Ingrese la categoría: ");
+                        String nombreCategoria = lector.readLine();
+
+                        Categoria categoriaEncontrada = inventario.buscarCategoria(nombreCategoria);
+
+                        if (categoriaEncontrada != null) {
+
+                            Producto productoEncontrado =
+                                    inventario.buscarProducto(nombreProducto, categoriaEncontrada);
+
+                            if (productoEncontrado != null) {
+                                System.out.println("\n--- PRODUCTO ENCONTRADO ---");
+                                System.out.println("Código: " + productoEncontrado.getId());
+                                System.out.println("Nombre: " + productoEncontrado.getNombre());
+                                System.out.println("Marca: " + productoEncontrado.getMarca());
+                                System.out.println("Precio: $" + productoEncontrado.getPrecio());
+                                System.out.println("Stock: " + productoEncontrado.getStock());
+                            } else {
+                                System.out.println("\nEl producto no existe en esa categoría.");
+                            }
+
+                        } else {
+                            System.out.println("\nLa categoría no existe.");
+                        }
+
+                    } else {
+                        System.out.println("\nOpción inválida.");
+                    }
 
 
                     break;
