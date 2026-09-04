@@ -259,6 +259,44 @@ public class Menu
 
                 case 4:
                     // Modificar producto
+                    System.out.println("\n--- MODIFICAR PRODUCTO ---");
+
+                    System.out.print("Ingrese el código del producto: ");
+                    String codigoModificar = lector.readLine();
+
+                    Producto productoModificar = inventario.buscarProducto(codigoModificar);
+
+                    if (productoModificar != null) {
+
+                        System.out.print("Ingrese el nuevo nombre: ");
+                        String nuevoNombre = lector.readLine();
+
+                        System.out.print("Ingrese la nueva marca: ");
+                        String nuevaMarca = lector.readLine();
+
+                        System.out.print("Ingrese el nuevo precio: ");
+                        int nuevoPrecio = Integer.parseInt(lector.readLine());
+
+                        System.out.print("Ingrese el nuevo precio de oferta: ");
+                        int nuevoPrecioOferta = Integer.parseInt(lector.readLine());
+
+                        System.out.print("Ingrese el nuevo stock: ");
+                        int nuevoStock = Integer.parseInt(lector.readLine());
+
+                        inventario.modificarProducto(
+                                codigoModificar,
+                                nuevoNombre,
+                                nuevaMarca,
+                                nuevoPrecio,
+                                nuevoPrecioOferta,
+                                nuevoStock
+                        );
+
+                        System.out.println("\nProducto modificado correctamente.");
+
+                    } else {
+                        System.out.println("\nEl producto no existe.");
+                    }
 
 
 
