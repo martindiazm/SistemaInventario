@@ -189,4 +189,20 @@ public class Inventario
 
         throw new ProductoNoEncontradoException("No se encontró un producto con el código: " + codigo);
     }
+    public void eliminarCategoria(String nombre) throws CategoriaNoEncontradaException {
+        String claveActual = null;
+
+        for (String nombreCategoria : categorias.keySet()) {
+            if (nombreCategoria.equalsIgnoreCase(nombre)) {
+                claveActual = nombreCategoria;
+                break;
+            }
+        }
+
+        if (claveActual == null) {
+            throw new CategoriaNoEncontradaException("No se encontró la categoría: " + nombre);
+        }
+
+        categorias.remove(claveActual);
+    }
 }

@@ -38,7 +38,7 @@ El sistema administra el inventario de un supermercado. Los datos principales co
 
 
 
-* SIA-8: Productos completos; categorías parcialmente completas (falta modificar y eliminar)
+* SIA-8: LISTO (agregar, mostrar, buscar, modificar y eliminar categorías y productos) 
 
 
 

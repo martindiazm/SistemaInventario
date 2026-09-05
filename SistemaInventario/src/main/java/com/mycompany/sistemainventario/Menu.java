@@ -178,7 +178,17 @@ public class Menu
 
                 case 5:
                     // Eliminar categoria
+                    System.out.println("\n--- ELIMINAR CATEGORÍA ---");
+                    System.out.print("Ingrese el nombre de la categoría: ");
+                    String nombreEliminar = lector.readLine();
 
+                    try {
+                        inventario.eliminarCategoria(nombreEliminar);
+                        System.out.println("\nCategoría eliminada correctamente.");
+                    }
+                    catch (CategoriaNoEncontradaException e) {
+                        System.out.println("\n" + e.getMessage());
+                    }
 
 
                     break;
