@@ -190,8 +190,39 @@ public class Menu
 
                 case 1:
                     // Agregar producto
+                    System.out.println("\n--- AGREGAR PRODUCTO ---");
 
+                    System.out.print("Ingrese el código del producto: ");
+                    String codigoNuevo = lector.readLine();
 
+                    System.out.print("Ingrese el nombre del producto: ");
+                    String nombreNuevo = lector.readLine();
+
+                    System.out.print("Ingrese la marca del producto: ");
+                    String marcaNueva = lector.readLine();
+
+                    System.out.print("Ingrese el precio del producto: ");
+                    int precioNuevo = Integer.parseInt(lector.readLine());
+
+                    System.out.print("Ingrese el precio de oferta: ");
+                    int precioOfertaNuevo = Integer.parseInt(lector.readLine());
+
+                    System.out.print("Ingrese el stock inicial: ");
+                    int stockNuevo = Integer.parseInt(lector.readLine());
+
+                    System.out.print("Ingrese la categoría: ");
+                    String categoriaNueva = lector.readLine();
+
+                    Producto nuevoProducto = new Producto(codigoNuevo, nombreNuevo, marcaNueva, precioNuevo, precioOfertaNuevo, stockNuevo);
+
+                    try {
+                        inventario.agregarProducto(categoriaNueva, nuevoProducto);
+
+                        System.out.println("\nProducto agregado correctamente.");
+                    } 
+                    catch (CategoriaNoEncontradaException e) {
+                        System.out.println("\n" + e.getMessage());
+                    }
 
                     break;
 

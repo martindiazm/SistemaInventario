@@ -32,14 +32,14 @@ public class Inventario
     }
 
     // Agrega un producto dentro de una categoría
-    public void agregarProducto(String nombreCat, Producto producto) 
+    public void agregarProducto(String nombreCat, Producto producto) throws CategoriaNoEncontradaException
     {
         Categoria categoria = categorias.get(nombreCat);
 
         if (categoria != null) {
             categoria.agregarProducto(producto);
         } else {
-            System.out.println("La categoría no existe.");
+            throw new CategoriaNoEncontradaException("No se encontró la categoría: " + nombreCat);
         }
     }
     public void agregarProducto(Categoria categoria, Producto producto) 
