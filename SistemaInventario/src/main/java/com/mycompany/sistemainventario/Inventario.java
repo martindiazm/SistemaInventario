@@ -98,6 +98,34 @@ public class Inventario
         
     }
 
+    public void modificarCategoria(String nombreActual, String nuevoNombre) throws CategoriaNoEncontradaException, CategoriaYaExisteException {
+         String claveActual = null;
+
+        for (String nombre : categorias.keySet()) {
+            if (nombre.equalsIgnoreCase(nombreActual)) {
+                claveActual = nombre;
+                break;
+            }
+        }
+
+        if (claveActual == null) {
+            throw new CategoriaNoEncontradaException("No se encontró la categoría: " + nombreActual);
+        }
+
+        for (String nombre : categorias.keySet()) {
+            if (nombre.equalsIgnoreCase(nuevoNombre) && !nombre.equalsIgnoreCase(claveActual)) {
+                throw new CategoriaYaExisteException("La categoría '" + nuevoNombre + "' ya existe.");
+            }
+        }
+
+        Categoria categoria = categorias.get(claveActual);
+
+        categorias.remove(claveActual);
+
+        categoria.setNombreCat(nuevoNombre);
+
+        categorias.put(nuevoNombre, categoria);
+    }
     public void mostrarCategorias() 
     {
 

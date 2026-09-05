@@ -34,11 +34,11 @@ El sistema administra el inventario de un supermercado. Los datos principales co
 
 
 
-* SIA-7: Mostrar ambas colecciones sí; agregar manualmente en el menú todavía no
+* SIA-7: Mostrar ambas colecciones sí; agregar manualmente en el menú sí
 
 
 
-* SIA-8: Productos casi completos; categorías todavía incompletas (falta modificar y eliminar)
+* SIA-8: Productos completos; categorías parcialmente completas (falta modificar y eliminar)
 
 
 
@@ -54,7 +54,7 @@ El sistema administra el inventario de un supermercado. Los datos principales co
 
 
 
-* SIA-12: LISTO (hay dos excepciones manejadas con try-catch)
+* SIA-12: LISTO (excepciones manejadas con try - catch para categorías y productos)
 
 
 
@@ -88,16 +88,4 @@ git push
 
 ### Instrucciones de instalación y ejecución del proyecto
 
-
-
-
-
-
-
-
-
-
-
-// Prueba de cambio para GitHub
-
-// adsadasads
+Pendiente de completar

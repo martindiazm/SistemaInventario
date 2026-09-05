@@ -152,6 +152,25 @@ public class Menu
 
                 case 4:
                     // Modificar categoria
+                    System.out.println("\n--- MODIFICAR CATEGORÍA ---");
+
+                    System.out.print("Ingrese el nombre actual de la categoría: ");
+                    String nombreActual = lector.readLine();
+
+                    System.out.print("Ingrese el nuevo nombre de la categoría: ");
+                    String nuevoNombre = lector.readLine();
+
+                    try {
+                        inventario.modificarCategoria(nombreActual, nuevoNombre);
+
+                        System.out.println("\nCategoría modificada correctamente.");
+                    }
+                    catch (CategoriaNoEncontradaException e) {
+                        System.out.println("\n" + e.getMessage());
+                    }
+                    catch (CategoriaYaExisteException e) {
+                        System.out.println("\n" + e.getMessage());
+                    }
 
 
 
