@@ -24,11 +24,12 @@ public class Inventario
     }
 
     // Agrega una categoría al inventario
-    public void agregarCategoria(Categoria categoria) 
-    {
-        if (categorias.containsKey(categoria.getNombreCat()) == false) {
-            categorias.put(categoria.getNombreCat(), categoria);
+    public void agregarCategoria(Categoria categoria) throws CategoriaYaExisteException {
+        if (categorias.containsKey(categoria.getNombreCat())) {
+            throw new CategoriaYaExisteException("La categoría '" + categoria.getNombreCat() + "' ya existe.");
         }
+
+        categorias.put(categoria.getNombreCat(), categoria);
     }
 
     // Agrega un producto dentro de una categoría

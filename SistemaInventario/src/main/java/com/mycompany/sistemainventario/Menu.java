@@ -106,7 +106,21 @@ public class Menu
 
                 case 1:
                     // Agregar categoria
-                    
+                    System.out.println("\n--- AGREGAR CATEGORÍA ---");
+
+                    System.out.print("Ingrese el nombre de la categoría: ");
+                    String nombreNuevaCategoria = lector.readLine();
+
+                    Categoria nuevaCategoria = new Categoria(nombreNuevaCategoria);
+
+                    try {
+                        inventario.agregarCategoria(nuevaCategoria);
+
+                        System.out.println("\nCategoría agregada correctamente.");
+                    }
+                    catch (CategoriaYaExisteException e) {
+                        System.out.println("\n" + e.getMessage());
+                    }
 
 
                     break;
