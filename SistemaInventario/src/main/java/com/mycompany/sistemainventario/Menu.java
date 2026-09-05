@@ -16,6 +16,15 @@ public class Menu
         lector = new BufferedReader( new InputStreamReader(System.in));
         this.inventario = inventario;
     }
+    public Inventario getInventario()
+    {
+        return inventario;
+    }
+
+    public void setInventario(Inventario inventario)
+    {
+        this.inventario = inventario;
+    }
 
     public void iniciar() throws IOException 
     {
@@ -167,9 +176,10 @@ public class Menu
             System.out.println("3. Buscar producto");
             System.out.println("4. Modificar producto");
             System.out.println("5. Eliminar producto");
-            System.out.println("6. Registrar entrada de stock");
-            System.out.println("7. Registrar venta / salida de stock");
-            System.out.println("8. Volver al menú principal");
+            System.out.println("6. Caluclar precio producto");
+            System.out.println("7. Registrar entrada de stock");
+            System.out.println("8. Registrar venta / salida de stock");
+            System.out.println("9. Volver al menú principal");
             System.out.println("==============================");
 
             System.out.print("Seleccione una opción: ");
@@ -202,25 +212,33 @@ public class Menu
                     System.out.print("Seleccione una opción: ");
                     int tipoBusqueda = Integer.parseInt(lector.readLine());
 
-                    if (tipoBusqueda == 1) {
+                    if (tipoBusqueda == 1) 
+                    {
 
                         System.out.print("\nIngrese el código del producto: ");
                         String codigo = lector.readLine();
+                        
+                        try
+                        {
+                            Producto productoEncontrado = inventario.buscarProducto(codigo);
 
-                        Producto productoEncontrado = inventario.buscarProducto(codigo);
-
-                        if (productoEncontrado != null) {
+                            
                             System.out.println("\n--- PRODUCTO ENCONTRADO ---");
                             System.out.println("Código: " + productoEncontrado.getId());
                             System.out.println("Nombre: " + productoEncontrado.getNombre());
                             System.out.println("Marca: " + productoEncontrado.getMarca());
                             System.out.println("Precio: $" + productoEncontrado.getPrecio());
                             System.out.println("Stock: " + productoEncontrado.getStock());
-                        } else {
-                            System.out.println("\nEl producto no existe.");
+                        } 
+                        catch (ProductoNoEncontradoException e)
+                        {
+                            System.out.println("\n" + e.getMessage());
                         }
+                    
 
-                    } else if (tipoBusqueda == 2) {
+                    } 
+                    else if (tipoBusqueda == 2) 
+                    {
 
                         System.out.print("\nIngrese el nombre del producto: ");
                         String nombreProducto = lector.readLine();
@@ -232,25 +250,31 @@ public class Menu
 
                         if (categoriaEncontrada != null) {
 
-                            Producto productoEncontrado =
-                                    inventario.buscarProducto(nombreProducto, categoriaEncontrada);
-
-                            if (productoEncontrado != null) {
+                            try
+                            {   
+                                Producto productoEncontrado = inventario.buscarProducto(nombreProducto, categoriaEncontrada);
+                            
                                 System.out.println("\n--- PRODUCTO ENCONTRADO ---");
                                 System.out.println("Código: " + productoEncontrado.getId());
                                 System.out.println("Nombre: " + productoEncontrado.getNombre());
                                 System.out.println("Marca: " + productoEncontrado.getMarca());
                                 System.out.println("Precio: $" + productoEncontrado.getPrecio());
                                 System.out.println("Stock: " + productoEncontrado.getStock());
-                            } else {
-                                System.out.println("\nEl producto no existe en esa categoría.");
+                            
+                            }
+                            catch (ProductoNoEncontradoException e)
+                            {
+                                System.out.println("\n" + e.getMessage());
                             }
 
-                        } else {
+                        } 
+                        else 
+                        {
                             System.out.println("\nLa categoría no existe.");
                         }
 
-                    } else {
+                    } 
+                    else {
                         System.out.println("\nOpción inválida.");
                     }
 
@@ -264,10 +288,10 @@ public class Menu
                     System.out.print("Ingrese el código del producto: ");
                     String codigoModificar = lector.readLine();
 
-                    Producto productoModificar = inventario.buscarProducto(codigoModificar);
 
-                    if (productoModificar != null) {
-
+                    try 
+                    {
+                        
                         System.out.print("Ingrese el nuevo nombre: ");
                         String nuevoNombre = lector.readLine();
 
@@ -294,36 +318,127 @@ public class Menu
 
                         System.out.println("\nProducto modificado correctamente.");
 
-                    } else {
-                        System.out.println("\nEl producto no existe.");
+                    } 
+                    catch (ProductoNoEncontradoException e)
+                    {
+                        System.out.println("\n" + e.getMessage());
                     }
-
 
 
                     break;
 
                 case 5:
                     // Eliminar producto
+                    System.out.println("\n--- ELIMINAR PRODUCTO ---");
 
+                    System.out.print("Ingrese el código del producto: ");
+                    String codigoEliminar = lector.readLine();
 
+                    try
+                    {
+                        inventario.eliminarProducto(codigoEliminar);
+
+                        System.out.println("\nProducto eliminado correctamente.");
+                    }
+                    catch (ProductoNoEncontradoException e)
+                    {
+                        System.out.println("\n" + e.getMessage());
+                    }
 
                     break;
 
+                    
                 case 6:
-                    // Registrar entrada de stock
+                    // Calcular precio de un producto
 
+                    System.out.println("\n--- CALCULAR PRECIO ---");
 
+                    System.out.print("Ingrese el código del producto: ");
+                    String codigoPrecio = lector.readLine();
+
+                    try
+                    {
+                        Producto productoPrecio = inventario.buscarProducto(codigoPrecio);
+
+                        System.out.println("Precio unitario: $" + productoPrecio.calcularPrecio());
+
+                        System.out.print("Ingrese cantidad de productos: ");
+
+                        int cantidadPrecio = Integer.parseInt(lector.readLine());
+
+                        System.out.println("Precio total: $" + productoPrecio.calcularPrecio(cantidadPrecio));
+                    }
+                    catch (ProductoNoEncontradoException e)
+                    {
+                        System.out.println("\n" + e.getMessage());
+                    }
 
                     break;
+
 
                 case 7:
-                    // Registrar venta / salida de stock
+                    // Registrar entrada de stock
 
+                    System.out.println("\n--- ENTRADA DE STOCK ---");
 
+                    System.out.print("Ingrese el código del producto: ");
+                    String codigoEntrada = lector.readLine();
+
+                    try
+                    {
+                        Producto productoEntrada = inventario.buscarProducto(codigoEntrada);
+
+                        System.out.print("Ingrese la cantidad a agregar: ");
+                        int cantidadEntrada = Integer.parseInt(lector.readLine());
+
+                        productoEntrada.aumentarStock(cantidadEntrada);
+
+                        System.out.println("\nStock actualizado correctamente.");
+
+                        System.out.println("Nuevo stock: " + productoEntrada.getStock());
+                    }
+                    catch (ProductoNoEncontradoException e)
+                    {
+                        System.out.println("\n" + e.getMessage());
+                    }
 
                     break;
 
+
                 case 8:
+                    // Registrar venta / salida de stock
+                    
+                    System.out.println("\n--- REGISTRAR VENTA ---");
+
+                    System.out.print("Ingrese el código del producto: ");
+                    String codigoVenta = lector.readLine();
+
+                    try
+                    {
+                        Producto productoVenta = inventario.buscarProducto(codigoVenta);
+
+                        System.out.print("Ingrese la cantidad vendida: ");
+                        int cantidadVenta = Integer.parseInt(lector.readLine());
+
+                        productoVenta.disminuirStock(cantidadVenta);
+
+                        System.out.println("\nVenta registrada correctamente.");
+
+                        System.out.println("Stock actual: " + productoVenta.getStock());
+                    }
+                    catch (ProductoNoEncontradoException e)
+                    {
+                        System.out.println("\n" + e.getMessage());
+                    }
+                    catch (StockInsuficienteException e)
+                    {
+                        System.out.println("\n" + e.getMessage());
+                    }
+
+                    break;
+
+
+                case 9:
                     System.out.println("\nVolviendo al menú principal...");
                     break;
 
@@ -332,6 +447,6 @@ public class Menu
                     break;
             }
 
-        } while (opcion != 8);
+        } while (opcion != 9);
     }
 }

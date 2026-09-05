@@ -42,7 +42,16 @@ public class Inventario
             System.out.println("La categoría no existe.");
         }
     }
-    public Producto buscarProducto(String codigo)
+    public void agregarProducto(Categoria categoria, Producto producto) 
+    {
+
+        if (categoria != null) {
+            categoria.agregarProducto(producto);
+        } else {
+            System.out.println("La categoría no existe.");
+        }
+    }
+    public Producto buscarProducto(String codigo) throws ProductoNoEncontradoException
     {
         // buscar por código
         for (Categoria categoria : categorias.values()) {
@@ -53,7 +62,7 @@ public class Inventario
             }
         }
 
-        return null;
+        throw new ProductoNoEncontradoException("No se encontró un producto con el código: " + codigo);
     }
     public Producto buscarProducto(String nombre, Categoria categoria) {
         // buscar por nombre y categoria
@@ -63,7 +72,7 @@ public class Inventario
             }
         }
 
-        return null;
+        throw new ProductoNoEncontradoException("No se encontró el producto: " + nombre);
     }
     public Categoria buscarCategoria(String nombre)
     {
@@ -76,21 +85,16 @@ public class Inventario
 
         return null;
     }
-    public boolean modificarProducto(String codigo, String nuevoNombre, String nuevaMarca, int nuevoPrecio, int nuevoPrecioOferta, int nuevoStock) {
+    public void modificarProducto(String codigo, String nuevoNombre, String nuevaMarca, int nuevoPrecio, int nuevoPrecioOferta, int nuevoStock) throws ProductoNoEncontradoException
+    {
         Producto producto = buscarProducto(codigo);
 
-        if (producto != null) 
-        {
-            producto.setNombre(nuevoNombre);
-            producto.setMarca(nuevaMarca);
-            producto.setPrecio(nuevoPrecio);
-            producto.setPrecioOferta(nuevoPrecioOferta);
-            producto.setStock(nuevoStock);
-
-            return true;
-        }
-
-        return false;
+        producto.setNombre(nuevoNombre);
+        producto.setMarca(nuevaMarca);
+        producto.setPrecio(nuevoPrecio);
+        producto.setPrecioOferta(nuevoPrecioOferta);
+        producto.setStock(nuevoStock);
+        
     }
 
     public void mostrarCategorias() 
@@ -112,23 +116,48 @@ public class Inventario
     public void mostrarProductos() 
     {
 
-    for (Categoria categoria : categorias.values()) {
+        for (Categoria categoria : categorias.values()) 
+        {
 
-        System.out.println("\nCategoría: " + categoria.getNombreCat());
-        
-        // Este for recorre todos los productos de la lista sin usar indices
-        for (Producto producto : categoria.getListaProductos()) {
+            System.out.println("\nCategoría: " + categoria.getNombreCat());
 
-            System.out.println(
-                    producto.getId()
-                    + " - "
-                    + producto.getNombre()
-                    + " - $"
-                    + producto.getPrecio()
-                    + " - Stock: "
-                    + producto.getStock()
-            );
+            // Este for recorre todos los productos de la lista sin usar indices
+            for (Producto producto : categoria.getListaProductos()) {
+
+                System.out.println(
+                        producto.getId()
+                        + " - "
+                        + producto.getNombre()
+                        + " - $"
+                        + producto.getPrecio()
+                        + " - Stock: "
+                        + producto.getStock()
+                );
+            }
         }
     }
-}
+    public void eliminarProducto(String codigo) throws ProductoNoEncontradoException
+    {
+        for (Categoria categoria : categorias.values())
+        {
+            Producto producto = null;
+
+            for (Producto p : categoria.getListaProductos())
+            {
+                if (p.getId().equals(codigo))
+                {
+                    producto = p;
+                    break;
+                }
+            }
+
+            if (producto != null)
+            {
+                categoria.getListaProductos().remove(producto);
+                return;
+            }
+        }
+
+        throw new ProductoNoEncontradoException("No se encontró un producto con el código: " + codigo);
+    }
 }

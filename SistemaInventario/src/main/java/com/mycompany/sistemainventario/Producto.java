@@ -92,8 +92,28 @@ public class Producto
         stock += cantidad;
     }
 
-    public void disminuirStock(int cantidad) 
+    public void disminuirStock(int cantidad) throws StockInsuficienteException 
     {
+        if (cantidad > stock) 
+        {
+            throw new StockInsuficienteException("No existe stock suficiente.");
+        }
         stock -= cantidad;
+    }
+    public int calcularPrecio() 
+    {
+        if (precioOferta > 0)  
+        {
+            return precioOferta;
+        }
+        else
+        {
+            return precio;
+        }
+
+    }
+    public int calcularPrecio(int cantidad) 
+    {
+        return calcularPrecio() * cantidad;
     }
 }

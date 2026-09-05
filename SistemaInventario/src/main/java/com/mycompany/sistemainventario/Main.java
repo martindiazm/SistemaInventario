@@ -1,6 +1,8 @@
 
 package com.mycompany.sistemainventario;
 
+import java.io.IOException;
+
 public class Main 
 {
 
@@ -50,13 +52,20 @@ public class Main
         15
         );
 
-        inventario.agregarProducto(lacteos, leche);
+        inventario.agregarProducto("Lácteos", leche);
         inventario.agregarProducto(lacteos, yogurt);
-        inventario.agregarProducto(bebidas, agua);
-        inventario.agregarProducto(aseo, detergente);
+        inventario.agregarProducto("Bebidas", agua);
+        inventario.agregarProducto("Aseo", detergente);
 
         Menu menu = new Menu(inventario);
 
-        menu.iniciar();
+        try 
+        {
+            menu.iniciar();
+        }
+        catch (IOException e) 
+        {
+            System.out.println("Error de lectura: " + e.getMessage());
+        }
     }
 }

@@ -2,11 +2,7 @@
 
 
 
-### Funcionalidades
-
-
-
-* 
+El sistema administra el inventario de un supermercado. Los datos principales corresponden a categorías y productos. Cada producto posee código, nombre, marca, precio, precio de oferta y stock. Los productos se organizan dentro de categorías. El sistema permitirá agregar, buscar, modificar y eliminar categorías y productos, además de registrar movimientos de stock e identificar productos que requieren reposición.
 
 
 
@@ -14,51 +10,51 @@
 
 
 
-* Diseño conceptual y codificación de 2 colecciones de objetos, estando la 2ª colección anidada     Al menos una de las colecciones debe ser un mapa (Listo)
+* SIA-1: falta análisis en el informe
 
 
 
-* Diseño conceptual y codificación de 2 clases que utilicen sobrecarga de métodos (falta 1)
+* SIA-2: falta UML
 
 
 
-* Diseño y codificación de 2 clases que utilicen sobreescritura de métodos (faltan los 2 y añadir clases que usen herencia)
+* SIA-3: Atributos privados, getters/setters y datos iniciales sí; documentación y algunas buenas prácticas faltan mejorar
 
 
 
-* Ya está la base para el menú, falta agregar las funciones (métodos)
+* SIA-4: LISTO (colecciones anidadas)
 
 
 
-* Se debe hacer un menú para el Sistema donde se ofrezcan las funcionalidades de:
-
-  * Inserción manual (agregar elemento). Para ambas colecciones, en opciones separadas. (Listo)
-  * Mostrar listado de elementos. Para ambas colecciones, en opciones separadas. (Listo)
-* Menú del sistema con funcionalidades de:
-
-  * Edición de elemento (Modificar elemento). Para ambas colecciones, en opciones separadas
-  * Eliminación de un elemento. Para ambas colecciones, en opciones separadas.
-  * &#x09;Búsqueda de un elemento. Para ambas colecciones, en opciones separadas.
+* SIA-5: LISTO (sobrecarga)
 
 
 
-
-
-* Implementar al menos 1 funcionalidad propia de utilidad para el negocio, distinta de inserción, edición, eliminación o reportes, considerando subconjunto filtrado por criterio.
-
-
-
-* Todas las funcionalidades deben ser implementadas mediante consola y ventanas. Al momento de lanzar la aplicación se debe solicitar al usuario decidir si usará consola o ventana.
+* SIA-6: No hay sobreescritura en dos clases (falta herencia)
 
 
 
-* Diseño y codificación de 2 excepciones que se utilicen en el programa. El manejo de todas las excepciones debe ser mediante try-catch.
+* SIA-7: Mostrar ambas colecciones sí; agregar manualmente en el menú todavía no
 
 
 
+* SIA-8: Productos casi completos; categorías todavía incompletas (falta modificar y eliminar)
 
 
 
+* SIA-9: Falta implementar el método de reposición de bajo stock (subconjunto filtrado por criterio)
+
+
+
+* SIA-10: solo consola, falta ventana
+
+
+
+* SIA-11: Falta persistencia de datos utilizando archivo CSV
+
+
+
+* SIA-12: LISTO (hay dos excepciones manejadas con try-catch)
 
 
 
@@ -103,6 +99,4 @@ git push
 
 
 // Prueba de cambio para GitHub
-
-
 
