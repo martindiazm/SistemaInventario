@@ -89,17 +89,40 @@ public class Producto
     }
     public void aumentarStock(int cantidad) 
     {
-        stock += cantidad;
+        if (cantidad > 0)
+        {
+            stock += cantidad;
+        }
     }
 
     public void disminuirStock(int cantidad) throws StockInsuficienteException 
     {
+        if (cantidad <= 0)
+        {
+            throw new StockInsuficienteException("La cantidad debe ser mayor que cero.");
+        }
         if (cantidad > stock) 
         {
             throw new StockInsuficienteException("No existe stock suficiente.");
         }
         stock -= cantidad;
     }
+    
+    public void mostrarInformacion()
+    {
+        System.out.println(
+                id
+                + " - "
+                + nombre
+                + " - "
+                + marca
+                + " - $"
+                + calcularPrecio()
+                + " - Stock: "
+                + stock
+        );  
+    }
+
     public int calcularPrecio() 
     {
         if (precioOferta > 0)  

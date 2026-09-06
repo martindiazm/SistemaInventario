@@ -4,6 +4,7 @@ package com.mycompany.sistemainventario;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 public class Menu 
     {
@@ -49,10 +50,68 @@ public class Menu
                     break;
 
                 case 3:
+                    // Reposición de productos bajos en stock
                     System.out.println("\n--- REPOSICIÓN DE PRODUCTOS ---");
-                    // Aqui va a ir la función(método) de reposición
+                    System.out.print("Ingrese el stock mínimo: ");
+                    int stockMinimo = Integer.parseInt(lector.readLine());
 
+                    ArrayList<Producto> productosBajoStock = inventario.obtenerProductosBajoStock(stockMinimo);
 
+                    if (productosBajoStock.isEmpty())
+                    {
+                        System.out.println("\nNo existen productos con stock menor a " + stockMinimo);
+                        break;
+                    }
+
+                    System.out.println("\n--- PRODUCTOS CON BAJO STOCK ---");
+
+                    for (Producto producto : productosBajoStock)
+                    {
+                        System.out.println(
+                                producto.getId()
+                                + " - "
+                                + producto.getNombre()
+                                + " - Stock actual: "
+                                + producto.getStock()
+                        );
+                    }
+
+                    System.out.print("\nIngrese el código del producto que desea reponer: ");
+                    String codigoReposicion = lector.readLine();
+
+                    try
+                    {
+                        Producto productoReposicion = inventario.buscarProducto(codigoReposicion);
+
+                        if (productoReposicion.getStock() >= stockMinimo)
+                        {
+                            System.out.println("\nEl producto seleccionado no pertenece al grupo de productos con bajo stock.");
+                            break;
+                        }
+
+                        System.out.print("Ingrese la cantidad a reponer: ");
+                        int cantidadReposicion = Integer.parseInt(lector.readLine());
+
+                        if (cantidadReposicion <= 0)
+                        {
+                            System.out.println("\nLa cantidad debe ser mayor que 0.");
+                            break;
+                        }
+
+                        productoReposicion.aumentarStock(cantidadReposicion);
+
+                        System.out.println("\nProducto repuesto correctamente.");
+                        System.out.println(
+                                "Nuevo stock de "
+                                + productoReposicion.getNombre()
+                                + ": "
+                                + productoReposicion.getStock()
+                        );
+                    }
+                    catch (ProductoNoEncontradoException e)
+                    {
+                        System.out.println("\n" + e.getMessage());
+                    }
 
                     break;
 

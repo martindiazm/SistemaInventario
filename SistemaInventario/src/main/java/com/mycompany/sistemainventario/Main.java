@@ -14,11 +14,19 @@ public class Main
         Categoria lacteos = new Categoria("Lácteos");
         Categoria bebidas = new Categoria("Bebidas");
         Categoria aseo = new Categoria("Aseo");
-
-        inventario.agregarCategoria(lacteos);
-        inventario.agregarCategoria(bebidas);
-        inventario.agregarCategoria(aseo);
-
+        Categoria granos = new Categoria("Granos");
+        
+        try
+        {
+            inventario.agregarCategoria(lacteos);
+            inventario.agregarCategoria(bebidas);
+            inventario.agregarCategoria(aseo);
+            inventario.agregarCategoria(granos);
+        }
+        catch (CategoriaYaExisteException e)
+        {
+            System.out.println(e.getMessage());
+        }
         
         Producto leche = new Producto(
         "P001",
@@ -28,12 +36,23 @@ public class Main
         990,
         30
         );
-        Producto yogurt = new Producto(
+        Producto yogurt = new ProductoPerecible(
         "P002",
         "Yogur Natural",
         "Soprole",
         800,
-        20
+        700,
+        20,
+        10
+        );
+        ProductoGranel arroz = new ProductoGranel(
+        "P005",
+        "Arroz a granel",
+        "Granel",
+        1800,
+        0,
+        40,
+        "kg"
         );
         Producto agua = new Producto(
         "P003",
@@ -56,6 +75,7 @@ public class Main
         inventario.agregarProducto(lacteos, yogurt);
         inventario.agregarProducto("Bebidas", agua);
         inventario.agregarProducto("Aseo", detergente);
+        inventario.agregarProducto(granos, arroz);
 
         Menu menu = new Menu(inventario);
 

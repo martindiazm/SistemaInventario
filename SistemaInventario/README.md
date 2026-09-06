@@ -30,7 +30,7 @@ El sistema administra el inventario de un supermercado. Los datos principales co
 
 
 
-* SIA-6: No hay sobreescritura en dos clases (falta herencia)
+* SIA-6: LISTO (herencia y sobreescritura)
 
 
 
@@ -38,11 +38,11 @@ El sistema administra el inventario de un supermercado. Los datos principales co
 
 
 
-* SIA-8: LISTO (agregar, mostrar, buscar, modificar y eliminar categorías y productos) 
+* SIA-8: LISTO (agregar, mostrar, buscar, modificar y eliminar categorías y productos)
 
 
 
-* SIA-9: Falta implementar el método de reposición de bajo stock (subconjunto filtrado por criterio)
+* SIA-9: LISTO
 
 
 
@@ -89,3 +89,4 @@ git push
 ### Instrucciones de instalación y ejecución del proyecto
 
 Pendiente de completar
+

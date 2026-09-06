@@ -43,14 +43,19 @@ public class Inventario
             throw new CategoriaNoEncontradaException("No se encontró la categoría: " + nombreCat);
         }
     }
-    public void agregarProducto(Categoria categoria, Producto producto) 
+    public void agregarProducto(Categoria categoria, Producto producto) throws CategoriaNoEncontradaException
     {
 
-        if (categoria != null) {
-            categoria.agregarProducto(producto);
-        } else {
-            System.out.println("La categoría no existe.");
+        if (categoria == null)
+        {
+            throw new CategoriaNoEncontradaException(
+                "La categoría no existe."
+            );
         }
+
+        categoria.agregarProducto(producto);
+            
+        
     }
     public Producto buscarProducto(String codigo) throws ProductoNoEncontradoException
     {
@@ -65,7 +70,8 @@ public class Inventario
 
         throw new ProductoNoEncontradoException("No se encontró un producto con el código: " + codigo);
     }
-    public Producto buscarProducto(String nombre, Categoria categoria) {
+    public Producto buscarProducto(String nombre, Categoria categoria) throws ProductoNoEncontradoException
+    {
         // buscar por nombre y categoria
         for (Producto producto : categoria.getListaProductos()) {
             if (producto.getNombre().equalsIgnoreCase(nombre)) {   
@@ -151,17 +157,9 @@ public class Inventario
             System.out.println("\nCategoría: " + categoria.getNombreCat());
 
             // Este for recorre todos los productos de la lista sin usar indices
-            for (Producto producto : categoria.getListaProductos()) {
-
-                System.out.println(
-                        producto.getId()
-                        + " - "
-                        + producto.getNombre()
-                        + " - $"
-                        + producto.getPrecio()
-                        + " - Stock: "
-                        + producto.getStock()
-                );
+            for (Producto producto : categoria.getListaProductos())
+            {
+                producto.mostrarInformacion();
             }
         }
     }
@@ -204,5 +202,22 @@ public class Inventario
         }
 
         categorias.remove(claveActual);
+    }
+    public ArrayList<Producto> obtenerProductosBajoStock(int limite)
+    {
+        ArrayList<Producto> productosBajoStock = new ArrayList<>();
+
+        for (Categoria categoria : categorias.values())
+        {
+            for (Producto producto : categoria.getListaProductos())
+            {
+                if (producto.getStock() < limite)
+                {
+                    productosBajoStock.add(producto);
+                }
+            }
+        }
+
+        return productosBajoStock;
     }
 }
