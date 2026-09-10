@@ -116,6 +116,30 @@ public class Menu
                     break;
 
                 case 4:
+                    //cargar CSV
+                    System.out.print("\nIngrese el nombre del archivo a cargar (ej: inventario.csv): ");
+                    String archivoCargar = lector.readLine();
+                    try {
+                        GestorCSV.cargarInventarioCSV(inventario, archivoCargar);
+                        System.out.println("\nInventario cargado exitosamente desde " + archivoCargar);
+                    } catch (IOException e) {
+                        System.out.println("\nError al cargar el archivo: " + e.getMessage());
+                    }
+                    break;
+
+                case 5:
+                    //guardar CSV
+                    System.out.print("\nIngrese el nombre del archivo para guardar: ");
+                    String archivoGuardar = lector.readLine();
+                    try {
+                        GestorCSV.guardarInventarioCSV(inventario, archivoGuardar);
+                        System.out.println("\nInventario guardado exitosamente en " + archivoGuardar);
+                    } catch (IOException e) {
+                        System.out.println("\nError al guardar el archivo: " + e.getMessage());
+                    }
+                    break;
+
+                case 6:
                     System.out.println("\nSaliendo del sistema...");
                     break;
 
@@ -124,7 +148,7 @@ public class Menu
                     break;
             }
 
-        } while (opcion != 4);
+        } while (opcion != 6); // Se actualizó la condición de salida a 6
     }
 
     private void mostrarMenuPrincipal() 
@@ -136,7 +160,9 @@ public class Menu
         System.out.println("1. Gestionar categorías");
         System.out.println("2. Gestionar productos");
         System.out.println("3. Reponer productos con bajo stock");
-        System.out.println("4. Salir");
+        System.out.println("4. Cargar CSV");
+        System.out.println("5. Guardar CSV");
+        System.out.println("6. Salir");
         System.out.println("==============================");
     }
 
