@@ -71,11 +71,21 @@ public class Main
         15
         );
 
-        inventario.agregarProducto("Lácteos", leche);
-        inventario.agregarProducto(lacteos, yogurt);
-        inventario.agregarProducto("Bebidas", agua);
-        inventario.agregarProducto("Aseo", detergente);
-        inventario.agregarProducto(granos, arroz);
+        try
+        {
+            inventario.agregarProducto("Lácteos", leche);
+            inventario.agregarProducto(lacteos, yogurt);
+
+            inventario.agregarProducto("Bebidas", agua);
+            inventario.agregarProducto("Aseo", detergente);
+
+            inventario.agregarProducto(granos, arroz);
+        }
+        catch (CategoriaNoEncontradaException e)
+        {
+            System.out.println("Error al agregar producto: " + e.getMessage());
+        }
+
 
         Menu menu = new Menu(inventario);
 
