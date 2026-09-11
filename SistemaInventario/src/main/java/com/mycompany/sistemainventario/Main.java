@@ -1,4 +1,3 @@
-
 package com.mycompany.sistemainventario;
 
 import java.io.IOException;
@@ -10,6 +9,9 @@ public class Main
     {
 
         Inventario inventario = new Inventario();
+
+        if (!GestorCSV.cargarArchivo(inventario))
+        {
 
         Categoria lacteos = new Categoria("Lácteos");
         Categoria bebidas = new Categoria("Bebidas");
@@ -86,6 +88,11 @@ public class Main
             System.out.println("Error al agregar producto: " + e.getMessage());
         }
 
+        
+        GestorCSV.guardar(inventario);
+
+        } 
+
         Menu menu = new Menu(inventario);
 
         try 
@@ -95,6 +102,10 @@ public class Main
         catch (IOException e) 
         {
             System.out.println("Error de lectura: " + e.getMessage());
+        }
+        finally
+        {
+            GestorCSV.guardar(inventario);
         }
     }
 }

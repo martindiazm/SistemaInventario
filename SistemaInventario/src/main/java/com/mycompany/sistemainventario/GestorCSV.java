@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.File;
 
 public class GestorCSV {
     private static final String SEPARADOR = ",";
@@ -104,6 +105,37 @@ public class GestorCSV {
                     // prevenir posibles fallos de categoría no encontrada
                 }
             }
+        }
+    }
+        // nombre del archivo usado para la persistencia batch (SIA-11)
+    public static final String ARCHIVO = "inventario.csv";
+
+    // intenta cargar el inventario desde el archivo 
+    // Retorna true si se cargó correctamente, false si el archivo no existe o falló.
+    public static boolean cargarArchivo(Inventario inventario) {
+        File archivo = new File(ARCHIVO);
+
+        if (!archivo.exists()) {
+            return false;
+        }
+
+        try {
+            cargarInventarioCSV(inventario, ARCHIVO);
+            System.out.println("Inventario cargado automáticamente desde " + ARCHIVO);
+            return true;
+        } catch (IOException e) {
+            System.out.println("No se pudo cargar " + ARCHIVO + ": " + e.getMessage());
+            return false;
+        }
+    }
+
+    // guarda el inventario en el archivo. Se usa al salir del sistema
+    public static void guardar(Inventario inventario) {
+        try {
+            guardarInventarioCSV(inventario, ARCHIVO);
+            System.out.println("Inventario guardado automáticamente en " + ARCHIVO);
+        } catch (IOException e) {
+            System.out.println("Error al guardar automáticamente el inventario: " + e.getMessage());
         }
     }
 }
