@@ -1,6 +1,11 @@
 categoria,tipo,id,nombre,marca,precio,precioOferta,stock,atributoEspecial
 Granos,GRANEL,P005,Arroz a granel,Granel,1800,0,40,kg
+Granos,GRANEL,P005,Arroz a granel,Granel,1800,0,40,kg
+Aseo,NORMAL,P004,Detergente 1L,Omo,2500,1990,15,N/A
 Aseo,NORMAL,P004,Detergente 1L,Omo,2500,1990,15,N/A
 Lácteos,NORMAL,P001,Leche Entera 1L,Colun,1200,990,30,N/A
-Lácteos,PERECIBLE,P002,Yogur Natural,Soprole,800,700,20,10
+Lácteos,PERECIBLE,P002,Yogur Natural,Soprole,800,700,21,10
+Lácteos,NORMAL,P001,Leche Entera 1L,Colun,1200,990,30,N/A
+Lácteos,PERECIBLE,P002,Yogur Natural,Soprole,800,700,21,10
+Bebidas,NORMAL,P003,Agua Mineral 1.5L,Cachantun,1000,800,50,N/A
 Bebidas,NORMAL,P003,Agua Mineral 1.5L,Cachantun,1000,800,50,N/A

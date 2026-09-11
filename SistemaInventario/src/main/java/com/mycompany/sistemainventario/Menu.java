@@ -117,6 +117,9 @@ public class Menu
 
                 case 4:
                     System.out.println("\nSaliendo del sistema...");
+                    System.out.println("Guardando inventario.csv...");
+                    GestorCSV.guardar(inventario);
+                    System.out.println("Datos guardados con éxito.");
                     break;
 
                 default:

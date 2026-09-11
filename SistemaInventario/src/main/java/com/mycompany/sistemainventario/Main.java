@@ -1,6 +1,7 @@
 package com.mycompany.sistemainventario;
 
 import java.io.IOException;
+import java.util.Scanner;
 
 public class Main 
 {
@@ -93,19 +94,35 @@ public class Main
 
         } 
 
-        Menu menu = new Menu(inventario);
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("=== SELECCIÓN DE MODO ===");
+        System.out.println("1. Modo Ventana (Interfaz Gráfica)");
+        System.out.println("2. Modo Consola");
+        System.out.print("Elija una opción (1 o 2): ");
 
-        try 
+        String opcion = scanner.nextLine().trim();
+
+        if (opcion.equals("1")) 
         {
-            menu.iniciar();
-        }
-        catch (IOException e) 
+            Ventana ventana = new Ventana(inventario);
+            ventana.setVisible(true);
+        } 
+        else 
         {
-            System.out.println("Error de lectura: " + e.getMessage());
-        }
-        finally
-        {
-            GestorCSV.guardar(inventario);
+            Menu menu = new Menu(inventario);
+
+            try 
+            {
+                menu.iniciar();
+            }
+            catch (IOException e) 
+            {
+                System.out.println("Error de lectura: " + e.getMessage());
+            }
+            finally
+            {
+                GestorCSV.guardar(inventario);
+            }
         }
     }
 }
