@@ -86,7 +86,6 @@ public class Main
             System.out.println("Error al agregar producto: " + e.getMessage());
         }
 
-
         Menu menu = new Menu(inventario);
 
         try 

@@ -48,9 +48,7 @@ public class Inventario
 
         if (categoria == null)
         {
-            throw new CategoriaNoEncontradaException(
-                "La categoría no existe."
-            );
+            throw new CategoriaNoEncontradaException("La categoría no existe.");
         }
 
         categoria.agregarProducto(producto);

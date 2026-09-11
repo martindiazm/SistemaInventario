@@ -35,7 +35,7 @@ public class Menu
         do {
             mostrarMenuPrincipal();
 
-            System.out.print("Seleccione una opción: ");
+            System.out.println("Seleccione una opción: ");
             opcion = Integer.parseInt(lector.readLine());
 
             switch (opcion) 
@@ -52,7 +52,7 @@ public class Menu
                 case 3:
                     // Reposición de productos bajos en stock
                     System.out.println("\n--- REPOSICIÓN DE PRODUCTOS ---");
-                    System.out.print("Ingrese el stock mínimo: ");
+                    System.out.println("Ingrese el stock mínimo: ");
                     int stockMinimo = Integer.parseInt(lector.readLine());
 
                     ArrayList<Producto> productosBajoStock = inventario.obtenerProductosBajoStock(stockMinimo);
@@ -76,7 +76,7 @@ public class Menu
                         );
                     }
 
-                    System.out.print("\nIngrese el código del producto que desea reponer: ");
+                    System.out.println("\nIngrese el código del producto que desea reponer: ");
                     String codigoReposicion = lector.readLine();
 
                     try
@@ -89,7 +89,7 @@ public class Menu
                             break;
                         }
 
-                        System.out.print("Ingrese la cantidad a reponer: ");
+                        System.out.println("Ingrese la cantidad a reponer: ");
                         int cantidadReposicion = Integer.parseInt(lector.readLine());
 
                         if (cantidadReposicion <= 0)
@@ -117,7 +117,7 @@ public class Menu
 
                 case 4:
                     //cargar CSV
-                    System.out.print("\nIngrese el nombre del archivo a cargar (ej: inventario.csv): ");
+                    System.out.println("\nIngrese el nombre del archivo a cargar (ej: inventario.csv): ");
                     String archivoCargar = lector.readLine();
                     try {
                         GestorCSV.cargarInventarioCSV(inventario, archivoCargar);
@@ -129,7 +129,7 @@ public class Menu
 
                 case 5:
                     //guardar CSV
-                    System.out.print("\nIngrese el nombre del archivo para guardar: ");
+                    System.out.println("\nIngrese el nombre del archivo para guardar: ");
                     String archivoGuardar = lector.readLine();
                     try {
                         GestorCSV.guardarInventarioCSV(inventario, archivoGuardar);
@@ -183,7 +183,7 @@ public class Menu
             System.out.println("6. Volver al menú principal");
             System.out.println("==============================");
 
-            System.out.print("Seleccione una opción: ");
+            System.out.println("Seleccione una opción: ");
             opcion = Integer.parseInt(lector.readLine());
 
             switch (opcion) 
@@ -193,7 +193,7 @@ public class Menu
                     // Agregar categoria
                     System.out.println("\n--- AGREGAR CATEGORÍA ---");
 
-                    System.out.print("Ingrese el nombre de la categoría: ");
+                    System.out.println("Ingrese el nombre de la categoría: ");
                     String nombreNuevaCategoria = lector.readLine();
 
                     Categoria nuevaCategoria = new Categoria(nombreNuevaCategoria);
@@ -220,7 +220,7 @@ public class Menu
 
                 case 3:
                     // Buscar categoria
-                    System.out.print("\nIngrese el nombre de la categoría: ");
+                    System.out.println("\nIngrese el nombre de la categoría: ");
                     String nombreCategoria = lector.readLine();
 
                     Categoria categoriaEncontrada = inventario.buscarCategoria(nombreCategoria);
@@ -239,10 +239,10 @@ public class Menu
                     // Modificar categoria
                     System.out.println("\n--- MODIFICAR CATEGORÍA ---");
 
-                    System.out.print("Ingrese el nombre actual de la categoría: ");
+                    System.out.println("Ingrese el nombre actual de la categoría: ");
                     String nombreActual = lector.readLine();
 
-                    System.out.print("Ingrese el nuevo nombre de la categoría: ");
+                    System.out.println("Ingrese el nuevo nombre de la categoría: ");
                     String nuevoNombre = lector.readLine();
 
                     try {
@@ -264,7 +264,7 @@ public class Menu
                 case 5:
                     // Eliminar categoria
                     System.out.println("\n--- ELIMINAR CATEGORÍA ---");
-                    System.out.print("Ingrese el nombre de la categoría: ");
+                    System.out.println("Ingrese el nombre de la categoría: ");
                     String nombreEliminar = lector.readLine();
 
                     try {
@@ -304,13 +304,13 @@ public class Menu
             System.out.println("3. Buscar producto");
             System.out.println("4. Modificar producto");
             System.out.println("5. Eliminar producto");
-            System.out.println("6. Caluclar precio producto");
+            System.out.println("6. Calcular precio producto");
             System.out.println("7. Registrar entrada de stock");
             System.out.println("8. Registrar venta / salida de stock");
             System.out.println("9. Volver al menú principal");
             System.out.println("==============================");
 
-            System.out.print("Seleccione una opción: ");
+            System.out.println("Seleccione una opción: ");
             opcion = Integer.parseInt(lector.readLine());
 
             switch (opcion) 
@@ -320,35 +320,91 @@ public class Menu
                     // Agregar producto
                     System.out.println("\n--- AGREGAR PRODUCTO ---");
 
-                    System.out.print("Ingrese el código del producto: ");
+                    System.out.println("Seleccione el tipo de producto:");
+                    System.out.println("1. Producto normal");
+                    System.out.println("2. Producto perecible");
+                    System.out.println("3. Producto a granel");
+
+                    int tipoProducto = Integer.parseInt(lector.readLine());
+
+                    System.out.println("Ingrese el código del producto: ");
                     String codigoNuevo = lector.readLine();
 
-                    System.out.print("Ingrese el nombre del producto: ");
+                    System.out.println("Ingrese el nombre del producto: ");
                     String nombreNuevo = lector.readLine();
 
-                    System.out.print("Ingrese la marca del producto: ");
+                    System.out.println("Ingrese la marca del producto: ");
                     String marcaNueva = lector.readLine();
 
-                    System.out.print("Ingrese el precio del producto: ");
+                    System.out.println("Ingrese el precio del producto: ");
                     int precioNuevo = Integer.parseInt(lector.readLine());
 
-                    System.out.print("Ingrese el precio de oferta: ");
+                    System.out.println("Ingrese el precio de oferta: ");
                     int precioOfertaNuevo = Integer.parseInt(lector.readLine());
 
-                    System.out.print("Ingrese el stock inicial: ");
+                    System.out.println("Ingrese el stock inicial: ");
                     int stockNuevo = Integer.parseInt(lector.readLine());
 
-                    System.out.print("Ingrese la categoría: ");
+                    System.out.println("Ingrese la categoría: ");
                     String categoriaNueva = lector.readLine();
 
-                    Producto nuevoProducto = new Producto(codigoNuevo, nombreNuevo, marcaNueva, precioNuevo, precioOfertaNuevo, stockNuevo);
+                    Producto nuevoProducto;
 
-                    try {
+                    if (tipoProducto == 1)
+                    {
+                        nuevoProducto = new Producto(
+                                codigoNuevo,
+                                nombreNuevo,
+                                marcaNueva,
+                                precioNuevo,
+                                precioOfertaNuevo,
+                                stockNuevo
+                        );
+                    }
+                    else if (tipoProducto == 2)
+                    {
+                        System.out.println("Ingrese los días para el vencimiento:");
+                        int diasVencimiento = Integer.parseInt(lector.readLine());
+
+                        nuevoProducto = new ProductoPerecible(
+                                codigoNuevo,
+                                nombreNuevo,
+                                marcaNueva,
+                                precioNuevo,
+                                precioOfertaNuevo,
+                                stockNuevo,
+                                diasVencimiento
+                        );
+                    }
+                    else if (tipoProducto == 3)
+                    {
+                        System.out.println("Ingrese la unidad de medida (kg, litro, etc.):");
+                        String unidadMedida = lector.readLine();
+
+                        nuevoProducto = new ProductoGranel(
+                                codigoNuevo,
+                                nombreNuevo,
+                                marcaNueva,
+                                precioNuevo,
+                                precioOfertaNuevo,
+                                stockNuevo,
+                                unidadMedida
+                        );
+                    }
+                    else
+                    {
+                        System.out.println("\nTipo de producto inválido.");
+                        break;
+                    }
+
+                    try
+                    {
                         inventario.agregarProducto(categoriaNueva, nuevoProducto);
 
                         System.out.println("\nProducto agregado correctamente.");
-                    } 
-                    catch (CategoriaNoEncontradaException e) {
+                    }
+                    catch (CategoriaNoEncontradaException e)
+                    {
                         System.out.println("\n" + e.getMessage());
                     }
 
@@ -368,13 +424,13 @@ public class Menu
                     System.out.println("1. Buscar por código");
                     System.out.println("2. Buscar por nombre y categoría");
     
-                    System.out.print("Seleccione una opción: ");
+                    System.out.println("Seleccione una opción: ");
                     int tipoBusqueda = Integer.parseInt(lector.readLine());
 
                     if (tipoBusqueda == 1) 
                     {
 
-                        System.out.print("\nIngrese el código del producto: ");
+                        System.out.println("\nIngrese el código del producto: ");
                         String codigo = lector.readLine();
                         
                         try
@@ -399,10 +455,10 @@ public class Menu
                     else if (tipoBusqueda == 2) 
                     {
 
-                        System.out.print("\nIngrese el nombre del producto: ");
+                        System.out.println("\nIngrese el nombre del producto: ");
                         String nombreProducto = lector.readLine();
 
-                        System.out.print("Ingrese la categoría: ");
+                        System.out.println("Ingrese la categoría: ");
                         String nombreCategoria = lector.readLine();
 
                         Categoria categoriaEncontrada = inventario.buscarCategoria(nombreCategoria);
@@ -444,26 +500,26 @@ public class Menu
                     // Modificar producto
                     System.out.println("\n--- MODIFICAR PRODUCTO ---");
 
-                    System.out.print("Ingrese el código del producto: ");
+                    System.out.println("Ingrese el código del producto: ");
                     String codigoModificar = lector.readLine();
 
 
                     try 
                     {
                         
-                        System.out.print("Ingrese el nuevo nombre: ");
+                        System.out.println("Ingrese el nuevo nombre: ");
                         String nuevoNombre = lector.readLine();
 
-                        System.out.print("Ingrese la nueva marca: ");
+                        System.out.println("Ingrese la nueva marca: ");
                         String nuevaMarca = lector.readLine();
 
-                        System.out.print("Ingrese el nuevo precio: ");
+                        System.out.println("Ingrese el nuevo precio: ");
                         int nuevoPrecio = Integer.parseInt(lector.readLine());
 
-                        System.out.print("Ingrese el nuevo precio de oferta: ");
+                        System.out.println("Ingrese el nuevo precio de oferta: ");
                         int nuevoPrecioOferta = Integer.parseInt(lector.readLine());
 
-                        System.out.print("Ingrese el nuevo stock: ");
+                        System.out.println("Ingrese el nuevo stock: ");
                         int nuevoStock = Integer.parseInt(lector.readLine());
 
                         inventario.modificarProducto(
@@ -490,7 +546,7 @@ public class Menu
                     // Eliminar producto
                     System.out.println("\n--- ELIMINAR PRODUCTO ---");
 
-                    System.out.print("Ingrese el código del producto: ");
+                    System.out.println("Ingrese el código del producto: ");
                     String codigoEliminar = lector.readLine();
 
                     try
@@ -512,7 +568,7 @@ public class Menu
 
                     System.out.println("\n--- CALCULAR PRECIO ---");
 
-                    System.out.print("Ingrese el código del producto: ");
+                    System.out.println("Ingrese el código del producto: ");
                     String codigoPrecio = lector.readLine();
 
                     try
@@ -521,7 +577,7 @@ public class Menu
 
                         System.out.println("Precio unitario: $" + productoPrecio.calcularPrecio());
 
-                        System.out.print("Ingrese cantidad de productos: ");
+                        System.out.println("Ingrese cantidad de productos: ");
 
                         int cantidadPrecio = Integer.parseInt(lector.readLine());
 
@@ -540,14 +596,14 @@ public class Menu
 
                     System.out.println("\n--- ENTRADA DE STOCK ---");
 
-                    System.out.print("Ingrese el código del producto: ");
+                    System.out.println("Ingrese el código del producto: ");
                     String codigoEntrada = lector.readLine();
 
                     try
                     {
                         Producto productoEntrada = inventario.buscarProducto(codigoEntrada);
 
-                        System.out.print("Ingrese la cantidad a agregar: ");
+                        System.out.println("Ingrese la cantidad a agregar: ");
                         int cantidadEntrada = Integer.parseInt(lector.readLine());
 
                         productoEntrada.aumentarStock(cantidadEntrada);
@@ -569,14 +625,14 @@ public class Menu
                     
                     System.out.println("\n--- REGISTRAR VENTA ---");
 
-                    System.out.print("Ingrese el código del producto: ");
+                    System.out.println("Ingrese el código del producto: ");
                     String codigoVenta = lector.readLine();
 
                     try
                     {
                         Producto productoVenta = inventario.buscarProducto(codigoVenta);
 
-                        System.out.print("Ingrese la cantidad vendida: ");
+                        System.out.println("Ingrese la cantidad vendida: ");
                         int cantidadVenta = Integer.parseInt(lector.readLine());
 
                         productoVenta.disminuirStock(cantidadVenta);
