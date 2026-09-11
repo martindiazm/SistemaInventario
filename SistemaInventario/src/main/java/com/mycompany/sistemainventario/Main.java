@@ -98,7 +98,7 @@ public class Main
         System.out.println("=== SELECCIÓN DE MODO ===");
         System.out.println("1. Modo Ventana (Interfaz Gráfica)");
         System.out.println("2. Modo Consola");
-        System.out.print("Elija una opción (1 o 2): ");
+        System.out.println("Elija una opción (1 o 2): ");
 
         String opcion = scanner.nextLine().trim();
 
