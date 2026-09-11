@@ -5,10 +5,7 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
-
 
 public class Ventana extends JFrame
 {
@@ -49,12 +46,11 @@ public class Ventana extends JFrame
 
         tabs.addTab("Categorías", construirPanelCategorias());
         tabs.addTab("Productos", construirPanelProductos());
-        tabs.addTab("Inventario / Archivo", construirPanelInventario());
+        tabs.addTab("Inventario", construirPanelInventario());
 
         setLayout(new BorderLayout());
         add(tabs, BorderLayout.CENTER);
     }
-
 
     private JPanel construirPanelCategorias()
     {
@@ -133,6 +129,7 @@ public class Ventana extends JFrame
         try
         {
             inventario.agregarCategoria(new Categoria(valores[0]));
+            GestorCSV.guardar(inventario); // Auto-guardado
             JOptionPane.showMessageDialog(this, "Categoría agregada correctamente.");
             refrescarCategorias();
         }
@@ -153,6 +150,7 @@ public class Ventana extends JFrame
         try
         {
             inventario.modificarCategoria(actual, valores[0]);
+            GestorCSV.guardar(inventario); // Auto-guardado
             JOptionPane.showMessageDialog(this, "Categoría modificada correctamente.");
             refrescarCategorias();
             refrescarProductos();
@@ -174,6 +172,7 @@ public class Ventana extends JFrame
         try
         {
             inventario.eliminarCategoria(nombre);
+            GestorCSV.guardar(inventario); // Auto-guardado
             JOptionPane.showMessageDialog(this, "Categoría eliminada correctamente.");
             refrescarCategorias();
             refrescarProductos();
@@ -304,6 +303,7 @@ public class Ventana extends JFrame
             Producto producto = new Producto(valores[0], valores[1], valores[2], precio, precioOferta, stock);
 
             inventario.agregarProducto(valores[6], producto);
+            GestorCSV.guardar(inventario); // Auto-guardado
 
             JOptionPane.showMessageDialog(this, "Producto agregado correctamente.");
             refrescarProductos();
@@ -346,6 +346,7 @@ public class Ventana extends JFrame
             int stock = Integer.parseInt(valores[4]);
 
             inventario.modificarProducto(codigo, valores[0], valores[1], precio, precioOferta, stock);
+            GestorCSV.guardar(inventario); // Auto-guardado
 
             JOptionPane.showMessageDialog(this, "Producto modificado correctamente.");
             refrescarProductos();
@@ -371,6 +372,7 @@ public class Ventana extends JFrame
         try
         {
             inventario.eliminarProducto(codigo);
+            GestorCSV.guardar(inventario); // Auto-guardado
             JOptionPane.showMessageDialog(this, "Producto eliminado correctamente.");
             refrescarProductos();
             refrescarCategorias();
@@ -415,6 +417,12 @@ public class Ventana extends JFrame
         try
         {
             int cantidad = Integer.parseInt(valores[0]);
+            if (cantidad <= 0)
+            {
+                JOptionPane.showMessageDialog(this, "La cantidad debe ser mayor a 0.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
             Producto producto = inventario.buscarProducto(codigo);
 
             JOptionPane.showMessageDialog(this,
@@ -443,9 +451,15 @@ public class Ventana extends JFrame
         try
         {
             int cantidad = Integer.parseInt(valores[0]);
-            Producto producto = inventario.buscarProducto(codigo);
+            if (cantidad <= 0)
+            {
+                JOptionPane.showMessageDialog(this, "La cantidad debe ser mayor a 0.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
+            Producto producto = inventario.buscarProducto(codigo);
             producto.aumentarStock(cantidad);
+            GestorCSV.guardar(inventario); // Auto-guardado
 
             JOptionPane.showMessageDialog(this, "Stock actualizado. Nuevo stock: " + producto.getStock());
             refrescarProductos();
@@ -471,9 +485,15 @@ public class Ventana extends JFrame
         try
         {
             int cantidad = Integer.parseInt(valores[0]);
-            Producto producto = inventario.buscarProducto(codigo);
+            if (cantidad <= 0)
+            {
+                JOptionPane.showMessageDialog(this, "La cantidad debe ser mayor a 0.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
+            Producto producto = inventario.buscarProducto(codigo);
             producto.disminuirStock(cantidad);
+            GestorCSV.guardar(inventario); // Auto-guardado
 
             JOptionPane.showMessageDialog(this, "Venta registrada. Stock actual: " + producto.getStock());
             refrescarProductos();
@@ -488,27 +508,19 @@ public class Ventana extends JFrame
         }
     }
 
-    
-
     private JPanel construirPanelInventario()
     {
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(4, 1, 10, 10));
+        panel.setLayout(new GridLayout(2, 1, 10, 10));
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         JButton btnReposicion = new JButton("Reponer productos con bajo stock");
-        JButton btnCargarCSV = new JButton("Cargar inventario desde CSV...");
-        JButton btnGuardarCSV = new JButton("Guardar inventario como CSV...");
         JButton btnSalir = new JButton("Guardar y salir");
 
         btnReposicion.addActionListener(e -> reponerBajoStock());
-        btnCargarCSV.addActionListener(e -> cargarCSV());
-        btnGuardarCSV.addActionListener(e -> guardarCSV());
         btnSalir.addActionListener(e -> salir());
 
         panel.add(btnReposicion);
-        panel.add(btnCargarCSV);
-        panel.add(btnGuardarCSV);
         panel.add(btnSalir);
 
         return panel;
@@ -553,7 +565,14 @@ public class Ventana extends JFrame
             if (cantidadStr == null) return;
 
             int cantidad = Integer.parseInt(cantidadStr.trim());
+            if (cantidad <= 0)
+            {
+                JOptionPane.showMessageDialog(this, "La cantidad debe ser mayor a 0.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
             producto.aumentarStock(cantidad);
+            GestorCSV.guardar(inventario); // Auto-guardado
 
             JOptionPane.showMessageDialog(this, "Producto repuesto. Nuevo stock: " + producto.getStock());
             refrescarProductos();
@@ -568,52 +587,10 @@ public class Ventana extends JFrame
         }
     }
 
-    private void cargarCSV()
-    {
-        JFileChooser selector = new JFileChooser();
-        int resultado = selector.showOpenDialog(this);
-
-        if (resultado != JFileChooser.APPROVE_OPTION) return;
-
-        File archivo = selector.getSelectedFile();
-
-        try
-        {
-            GestorCSV.cargarInventarioCSV(inventario, archivo.getAbsolutePath());
-            JOptionPane.showMessageDialog(this, "Inventario cargado exitosamente desde " + archivo.getName());
-            refrescarCategorias();
-            refrescarProductos();
-        }
-        catch (IOException e)
-        {
-            JOptionPane.showMessageDialog(this, "Error al cargar el archivo: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-
-    private void guardarCSV()
-    {
-        JFileChooser selector = new JFileChooser();
-        int resultado = selector.showSaveDialog(this);
-
-        if (resultado != JFileChooser.APPROVE_OPTION) return;
-
-        File archivo = selector.getSelectedFile();
-
-        try
-        {
-            GestorCSV.guardarInventarioCSV(inventario, archivo.getAbsolutePath());
-            JOptionPane.showMessageDialog(this, "Inventario guardado exitosamente en " + archivo.getName());
-        }
-        catch (IOException e)
-        {
-            JOptionPane.showMessageDialog(this, "Error al guardar el archivo: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-
-    
     private void salir()
     {
         GestorCSV.guardar(inventario);
+        JOptionPane.showMessageDialog(this, "Datos guardados correctamente en inventario.csv.", "Salida", JOptionPane.INFORMATION_MESSAGE);
         dispose();
         System.exit(0);
     }
