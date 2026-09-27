@@ -314,14 +314,14 @@ public class Menu
                      if (tipoProducto < 1 || tipoProducto > 3) 
                     {
                         System.out.println("\nTipo de producto invalido.");
-                        return;
+                        break;
                     }
 
                     String codigoNuevo = leerTexto("Ingrese el codigo del producto: ");
-                    if (inventario.existeProducto(codigo)) 
+                    if (inventario.existeProducto(codigoNuevo)) 
                     {
-                        System.out.println("\nYa existe un producto con el codigo: " + codigo);
-                        return;
+                        System.out.println("\nYa existe un producto con el codigo: " + codigoNuevo);
+                        break;
                     }
 
                     String nombreNuevo = leerTexto("Ingrese el nombre del producto: ");
@@ -407,21 +407,21 @@ public class Menu
                     try 
                     {
                         Producto producto;
-                        if (tipo == 1) {
+                        if (tipoBusqueda  == 1) {
                             producto = inventario.buscarProducto(leerTexto("Ingrese el codigo del producto: "));
                         } 
-                        else if (tipo == 2) {
+                        else if (tipoBusqueda  == 2) {
                             String nombre = leerTexto("Ingrese el nombre del producto: ");
                             Categoria categoria = inventario.buscarCategoria(leerTexto("Ingrese la categoria: "));
                             if (categoria == null) {
                                 System.out.println("\nLa categoria no existe.");
-                                return;
+                                break;
                             }
                             producto = inventario.buscarProducto(nombre, categoria);
                         } 
                         else {
                             System.out.println("\nOpcion invalida.");
-                            return;
+                            break;
                         }
                         mostrarProducto(producto);
                     } 
