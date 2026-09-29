@@ -1,6 +1,10 @@
 
 package com.mycompany.sistemainventario;
 
+/**
+ * Representa un producto generico del supermercado.
+ * Contiene los datos comunes y las operaciones de precio y stock.
+ */
 public class Producto 
 {
     private String id;
@@ -10,6 +14,7 @@ public class Producto
     private int precioOferta;
     private int stock;
 
+    // Crea un producto sin precio de oferta
     public Producto(String id, String nombre, String marca, int precio, int stock) 
     {
         this.id = id;
@@ -18,6 +23,8 @@ public class Producto
         this.precio = precio;
         this.stock = stock;
     }
+
+    // Crea un producto con precio normal, oferta y stock inicial
     public Producto(String id, String nombre, String marca, int precio, int precioOferta, int stock) 
     {
         this.id = id;
@@ -87,27 +94,27 @@ public class Producto
     {
         this.stock = stock;
     }
+    // Aumenta el stock con una cantidad positiva
     public void aumentarStock(int cantidad) 
     {
-        if (cantidad > 0)
-        {
-            stock += cantidad;
+        if (cantidad <= 0) {
+            throw new IllegalArgumentException("La cantidad debe ser mayor que cero.");
         }
+        stock += cantidad;
     }
 
-    public void disminuirStock(int cantidad) throws StockInsuficienteException 
-    {
-        if (cantidad <= 0)
-        {
+    // Disminuye el stock sin permitir cantidades invalidas o superiores al stock
+    public void disminuirStock(int cantidad) throws StockInsuficienteException {
+        if (cantidad <= 0) {
             throw new StockInsuficienteException("La cantidad debe ser mayor que cero.");
         }
-        if (cantidad > stock) 
-        {
+        if (cantidad > stock) {
             throw new StockInsuficienteException("No existe stock suficiente.");
         }
         stock -= cantidad;
     }
     
+    // Muestra la informacion general del producto
     public void mostrarInformacion()
     {
         System.out.println(
@@ -123,6 +130,7 @@ public class Producto
         );  
     }
 
+    // Calcula el precio unitario, usando oferta cuando corresponde
     public int calcularPrecio() 
     {
         if (precioOferta > 0)  
@@ -135,8 +143,12 @@ public class Producto
         }
 
     }
-    public int calcularPrecio(int cantidad) 
-    {
+
+    // Calcula el precio total para una cantidad determinada
+    public int calcularPrecio(int cantidad) {
+        if (cantidad < 0) {
+            throw new IllegalArgumentException("La cantidad no puede ser negativa.");
+        }
         return calcularPrecio() * cantidad;
     }
 }

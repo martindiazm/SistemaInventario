@@ -1,11 +1,12 @@
 
 package com.mycompany.sistemainventario;
 
-
+// Producto que posee informacion adicional sobre su vencimiento.
 public class ProductoPerecible extends Producto
 {
     private int diasVencimiento;
-
+    
+    // Crea un producto perecible con sus dias restantes de vencimiento
     public ProductoPerecible(
             String id,
             String nombre,
@@ -29,7 +30,8 @@ public class ProductoPerecible extends Producto
     {
         this.diasVencimiento = diasVencimiento;
     }
-
+    
+    // Sobrescribe la visualizacion para incluir el vencimiento
     @Override
     public void mostrarInformacion()
     {

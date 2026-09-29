@@ -71,7 +71,7 @@ public class Menu
     // Lee repetidamente un entero hasta recibir una entrada valida
     private int leerEntero(String mensaje) throws IOException {
         while (true) {
-            System.out.print(mensaje);
+            System.out.println(mensaje);
             String entrada = lector.readLine();
             try {
                 return Integer.parseInt(entrada.trim());
@@ -149,7 +149,7 @@ public class Menu
 
     private String leerTexto(String mensaje) throws IOException {
         while (true) {
-            System.out.print(mensaje);
+            System.out.println(mensaje);
             String texto = lector.readLine();
             if (texto != null && !texto.trim().isEmpty()) return texto.trim();
             System.out.println("La entrada no puede estar vacia.");
@@ -309,7 +309,11 @@ public class Menu
                     // Agregar producto
                     System.out.println("\n--- AGREGAR PRODUCTO ---");
 
-                    int tipoProducto = leerEntero("1. Producto normal\n2. Producto perecible\n3. Producto a granel\nSeleccione el tipo: ");
+                    System.out.println("1. Producto normal");
+                    System.out.println("2. Producto perecible");
+                    System.out.println("3. Producto a granel");
+
+                    int tipoProducto = leerEntero("Seleccione el tipo: ");
                     
                      if (tipoProducto < 1 || tipoProducto > 3) 
                     {
@@ -402,7 +406,10 @@ public class Menu
                     // Buscar producto
                     System.out.println("\n--- BUSCAR PRODUCTO ---");
 
-                    int tipoBusqueda = leerEntero("1. Buscar por codigo\n2. Buscar por nombre y categoria\nSeleccione una opcion: ");
+                    System.out.println("1. Buscar por codigo");
+                    System.out.println("2. Buscar por nombre y categoria");
+
+                    int tipoBusqueda = leerEntero("Seleccione una opcion: ");
                     
                     try 
                     {
