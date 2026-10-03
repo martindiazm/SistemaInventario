@@ -65,7 +65,7 @@ public class Menu
                     break;
             }
 
-        } while (opcion != 4); // Se actualizó la condición de salida a 6
+        } while (opcion != 4); 
     }
     
     // Lee repetidamente un entero hasta recibir una entrada valida

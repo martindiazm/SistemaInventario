@@ -159,6 +159,10 @@ public class Ventana extends JFrame
         {
             JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
+         catch (IllegalArgumentException e) 
+        {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     private void eliminarCategoria()
@@ -289,33 +293,239 @@ public class Ventana extends JFrame
     {
         String[] valores = solicitarDatos(
             "Agregar producto",
-            new String[]{"Código:", "Nombre:", "Marca:", "Precio:", "Precio oferta:", "Stock inicial:", "Categoría:"},
+            new String[]{
+                "Código:",
+                "Nombre:",
+                "Marca:",
+                "Precio:",
+                "Precio oferta:",
+                "Stock inicial:",
+                "Categoría:"
+            },
             null
         );
-        if (valores == null) return;
+
+        if (valores == null)
+        {
+            return;
+        }
 
         try
         {
-            int precio = Integer.parseInt(valores[3]);
-            int precioOferta = Integer.parseInt(valores[4]);
-            int stock = Integer.parseInt(valores[5]);
+            // Datos básicos
+            String codigo = valores[0].trim();
+            String nombre = valores[1].trim();
+            String marca = valores[2].trim();
+            String categoria = valores[6].trim();
 
-            Producto producto = new Producto(valores[0], valores[1], valores[2], precio, precioOferta, stock);
+            // Validar campos de texto
+            if (codigo.isEmpty()
+                    || nombre.isEmpty()
+                    || marca.isEmpty()
+                    || categoria.isEmpty())
+            {
+                JOptionPane.showMessageDialog(
+                    this,
+                    "Código, nombre, marca y categoría son obligatorios.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE
+                );
+                return;
+            }
 
-            inventario.agregarProducto(valores[6], producto);
-            GestorCSV.guardar(inventario); // Auto-guardado
+            // Datos numéricos
+            int precio = Integer.parseInt(valores[3].trim());
+            int precioOferta = Integer.parseInt(valores[4].trim());
+            int stock = Integer.parseInt(valores[5].trim());
 
-            JOptionPane.showMessageDialog(this, "Producto agregado correctamente.");
+            // Validar valores numéricos
+            if (precio < 0)
+            {
+                JOptionPane.showMessageDialog(
+                    this,
+                    "El precio no puede ser negativo.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE
+                );
+                return;
+            }
+
+            if (precioOferta < 0)
+            {
+                JOptionPane.showMessageDialog(
+                    this,
+                    "El precio de oferta no puede ser negativo.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE
+                );
+                return;
+            }
+
+            if (stock < 0)
+            {
+                JOptionPane.showMessageDialog(
+                    this,
+                    "El stock inicial no puede ser negativo.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE
+                );
+                return;
+            }
+
+            // Seleccionar tipo de producto
+            String[] tipos = {
+                "Producto normal",
+                "Producto perecible",
+                "Producto a granel"
+            };
+
+            int tipoProducto = JOptionPane.showOptionDialog(
+                this,
+                "Seleccione el tipo de producto:",
+                "Tipo de producto",
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                tipos,
+                tipos[0]
+            );
+
+            // Cancelar
+            if (tipoProducto == -1)
+            {
+                return;
+            }
+
+            Producto producto;
+
+            // Producto normal
+            if (tipoProducto == 0)
+            {
+                producto = new Producto(
+                    codigo,
+                    nombre,
+                    marca,
+                    precio,
+                    precioOferta,
+                    stock
+                );
+            }
+
+            // Producto perecible
+            else if (tipoProducto == 1)
+            {
+                String diasTexto = JOptionPane.showInputDialog(
+                    this,
+                    "Ingrese los días de vencimiento:"
+                );
+
+                if (diasTexto == null)
+                {
+                    return;
+                }
+
+                int diasVencimiento = Integer.parseInt(diasTexto.trim());
+
+                if (diasVencimiento < 0)
+                {
+                    JOptionPane.showMessageDialog(
+                        this,
+                        "Los días de vencimiento no pueden ser negativos.",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE
+                    );
+                    return;
+                }
+
+                producto = new ProductoPerecible(
+                    codigo,
+                    nombre,
+                    marca,
+                    precio,
+                    precioOferta,
+                    stock,
+                    diasVencimiento
+                );
+            }
+
+            // Producto a granel
+            else
+            {
+                String unidadMedida = JOptionPane.showInputDialog(
+                    this,
+                    "Ingrese la unidad de medida:"
+                );
+
+                if (unidadMedida == null)
+                {
+                    return;
+                }
+
+                unidadMedida = unidadMedida.trim();
+
+                if (unidadMedida.isEmpty())
+                {
+                    JOptionPane.showMessageDialog(
+                        this,
+                        "La unidad de medida no puede estar vacía.",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE
+                    );
+                    return;
+                }
+
+                producto = new ProductoGranel(
+                    codigo,
+                    nombre,
+                    marca,
+                    precio,
+                    precioOferta,
+                    stock,
+                    unidadMedida
+                );
+            }
+
+            // Agregar al inventario
+            inventario.agregarProducto(categoria, producto);
+
+            // Auto-guardado
+            GestorCSV.guardar(inventario);
+
+            JOptionPane.showMessageDialog(
+                this,
+                "Producto agregado correctamente."
+            );
+
+            // Actualizar tablas
             refrescarProductos();
             refrescarCategorias();
         }
         catch (NumberFormatException e)
         {
-            JOptionPane.showMessageDialog(this, "Precio, precio de oferta y stock deben ser números.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(
+                this,
+                "Precio, precio de oferta, stock y datos numéricos adicionales deben ser números válidos.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE
+            );
         }
         catch (CategoriaNoEncontradaException e)
         {
-            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(
+                this,
+                e.getMessage(),
+                "Error",
+                JOptionPane.ERROR_MESSAGE
+            );
+        }
+        catch (IllegalArgumentException e)
+        {
+            JOptionPane.showMessageDialog(
+                this,
+                e.getMessage(),
+                "Error",
+                JOptionPane.ERROR_MESSAGE
+            );
         }
     }
 

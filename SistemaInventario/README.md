@@ -118,7 +118,5 @@ El proyecto se encuentra organizado principalmente en las siguientes clases:
 
 
 
-Además, el proyecto puede contener otras clases relacionadas con funcionalidades adicionales, excepciones, persistencia o especializaciones de productos.
-
-
+Además, el proyecto contiene otras clases relacionadas con funcionalidades adicionales, excepciones, persistencia o especializaciones de productos.
 
